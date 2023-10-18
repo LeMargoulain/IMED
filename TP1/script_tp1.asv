@@ -67,8 +67,8 @@ YCoeff = Coefficients(2);
 CCoeff = Coefficients(3);
 
 hold on
-[xx, yy]=meshgrid(0:.1:1,0:.1:1); % génère une grille régulière pour l'affichage du plan estimé
+[xx, yy]=meshgrid(0:.1:1,0:.1:1); % gÃ©nÃ¨re une grille rÃ©guliÃ¨re pour l'affichage du plan estimÃ©
 zz = XCoeff * xx + YCoeff * yy + CCoeff;
-surf(xx,yy,zz) % affiche le plan donné par l'équation estimée
-title(sprintf('Plan z=(%f)*x+(%f)*y+(%f)',XCoeff, YCoeff, CCoeff)) %équation du plan estimé (doit être proche de z=2x-5y+3)
-% En tournant autour de la surface on voit que les points (x,y,z) sont "à peu près" sur le plan estimé
+surf(xx,yy,zz) % affiche le plan donnÃ© par l'Ã©quation estimÃ©e
+title(sprintf('Plan z=(%f)*x+(%f)*y+(%f)',XCoeff, YCoeff, CCoeff)) %Ã©quation du plan estimÃ© (doit Ãªtre proche de z=2x-5y+3)
+% En tournant autour de la surface on voit que les points (x,y,z) sont "Ã  peu prÃ¨s" sur le plan estimÃ©

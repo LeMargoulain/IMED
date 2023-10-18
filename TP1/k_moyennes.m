@@ -1,6 +1,5 @@
 function [Segmentation,Seuils] = k_moyennes(M0,k)
-%EUH ATTENTION LE K LA IL PREND LES NAN EN COMPTES DONC SI VOUS VOULEZ 4
-%CLASSES VOUS METTEZ 3 OK??
+% Le fond compte comme une classe de base donc k = k+1 en réalité
 
 Moyennes = zeros(k,1);
 
