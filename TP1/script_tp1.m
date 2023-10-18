@@ -7,11 +7,20 @@ close all
 irm_cerveau_mat = load('IRM_cerveau.mat');
 m_0 = irm_cerveau_mat.M0;
 
-coupe_axiale = squeeze(m_0(:,:,80));
-imshow(coupe_axiale, [])
+% Vue axiale
+figure;
+title("axiale")
 visu_coupe('axiale', m_0);
 
+% Vue sagittale
+figure;
+title("sagittale")
+visu_coupe('sagittale', m_0);
 
+% Vue coronale
+figure;
+title("coronale")
+visu_coupe('coronale', m_0);
 %% Exercice 2 %%
 
 [segmentation, seuils] = k_moyennes(m_0, 3);
