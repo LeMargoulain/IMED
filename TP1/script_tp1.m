@@ -27,9 +27,18 @@ visu_coupe('coronale', m_0);
 [segmentation, seuils] = k_moyennes(m_0, 3);
 
 %% Exercice 3 %%
+figure;
+subplot(1,2,1)
+imagesc(m_0(:,:,80))
+title("image originale");
+axis equal;
+axis off;
 
-smoothed_segmentation = smooth3(segmentation);
-visu_coupe('coronale', smoothed_segmentation)
+subplot(1,2,2)
+imagesc(segmentation(:,:,80))
+title("image segmentée");
+axis equal;
+axis off;
 
 %% Exercice 4 %%
 
@@ -37,8 +46,10 @@ x = 1:1:143;
 y = 1:1:198;
 z = 1:1:154;
 [X,Y,Z] = meshgrid(y,x,z);
+moothed_segmentation = smooth3(segmentation);
 
-[F,V] = MarchingCubes(X,Y,Z,smoothed_segmentation,1.5);
+%Surface corticale
+[F,V] = MarchingCubes(X,Y,Z,smoothed_segmentation,1);
 
 % =====Partie avec biais======%
 
