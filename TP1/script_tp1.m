@@ -48,11 +48,9 @@ m_0_b = irm_cerveau_avecbiais.M0;
 surf(m_0_b(:,:,80))
 
 %% Exercice 7 %%
-%ngrid
-size_matrix = size(m_0_b);
-
-x = 1:1:size_matrix(1);
-y = 1:1:size_matrix(2);
+%ndgrid
+%size_matrix = size(m_0_b);
+[x,y] = ndgrid(m_0_b(:,:,80));
 z = m_0_b(:,:,80);
 
 Xcolv = x(:); % on transforme en vecteur colonne
