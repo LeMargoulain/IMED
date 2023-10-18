@@ -66,7 +66,7 @@ XCoeff = Coefficients(1);
 YCoeff = Coefficients(2);
 CCoeff = Coefficients(3);
 
-[xx, yy]=meshgrid(0:1:size_matrix(2),0:1:size_matrix(1)); % génère une grille régulière pour l'affichage du plan estimé
+[xx, yy]=meshgrid(0:1:size_matrix(2)-1,0:1:size_matrix(1)-1); % génère une grille régulière pour l'affichage du plan estimé
 zz = XCoeff * yy + YCoeff * xx + CCoeff;
 figure(1)
 surf(xx,yy,zz) % affiche le plan donné par l'équation estimée
@@ -76,5 +76,9 @@ hold on
 grid on
 title(sprintf('Plan z=(%f)*x+(%f)*y+(%f)',XCoeff, YCoeff, CCoeff)) %équation du plan estimé (doit être proche de z=2x-5y+3)
 % En tournant autour de la surface on voit que les points (x,y,z) sont "à peu près" sur le plan estimé
+hold off
+coupe = m_0_b(:,:,80);
+coupeCorrige = coupe-(XCoeff * yy + YCoeff * xx + CCoeff);
+surf(coupeCorrige);
 
 
