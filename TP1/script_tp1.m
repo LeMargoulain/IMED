@@ -23,6 +23,7 @@ title("coronale")
 visu_coupe('coronale', m_0);
 %% Exercice 2 %%
 
+% k_moyennes sur IRM_Cerveau.mat
 [segmentation, seuils] = k_moyennes(m_0, 3);
 
 %% Exercice 3 %%
