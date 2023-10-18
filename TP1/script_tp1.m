@@ -41,7 +41,7 @@ m_0_b = irm_cerveau_avecbiais.M0;
 [segm2,s2] = k_moyennes(m_0_b(:,:,80),3);
 
 [segmentation_b, seuils_b] = k_moyennes(m_0,3);
-%visu_coupe('axiale',segmentation_b)
+visu_coupe('axiale',segmentation_b)
 
 %% Exercice 6 %%
 
@@ -50,9 +50,9 @@ surf(m_0_b(:,:,80))
 %% Exercice 7 %%
 %ndgrid
 size_matrix = size(m_0_b);
-[x,y] = ndgrid(1:size_matrix(1),1:size_matrix(2));
+[x,y] = ndgrid(1:size_matrix(1),1:size_matrix(2)); % on créer un grid pour régler le problème de dimension
 z = m_0_b(:,:,80);
-x = x(~isnan(m_0_b(:,:,80)));
+x = x(~isnan(m_0_b(:,:,80))); % on retir les nan
 y = y(~isnan(m_0_b(:,:,80)));
 z =z(~isnan(z));
 
@@ -66,8 +66,8 @@ XCoeff = Coefficients(1);
 YCoeff = Coefficients(2);
 CCoeff = Coefficients(3);
 
-[xx, yy]=meshgrid(0:1:size_matrix(2)-1,0:1:size_matrix(1)-1); % génère une grille régulière pour l'affichage du plan estimé
-zz = XCoeff * yy + YCoeff * xx + CCoeff;
+[xx, yy]=meshgrid(1:1:size_matrix(2),1:1:size_matrix(1)); % génère une grille régulière pour l'affichage du plan estimé
+zz = XCoeff *  yy + YCoeff * xx + CCoeff;
 figure(1)
 surf(xx,yy,zz) % affiche le plan donné par l'équation estimée
 hold on
@@ -78,7 +78,16 @@ title(sprintf('Plan z=(%f)*x+(%f)*y+(%f)',XCoeff, YCoeff, CCoeff)) %équation du 
 % En tournant autour de la surface on voit que les points (x,y,z) sont "à peu près" sur le plan estimé
 hold off
 coupe = m_0_b(:,:,80);
-coupeCorrige = coupe-(XCoeff * yy + YCoeff * xx + CCoeff);
+coupeCorrige = coupe-zz; % (XCoeff * yy + YCoeff * xx + CCoeff); %on enlève le plan a la coupe pour égaliser
 surf(coupeCorrige);
+imagesc(coupeCorrige)
+[segmentation_b, seuils_b] = k_moyennes(coupeCorrige,3);
+figure(2);
+imagesc(segmentation_b);
+[segmentation_c, seuils_c] = k_moyennes(coupe,3);
+figure(3);
+imagesc(segmentation_c);
+
+
 
 

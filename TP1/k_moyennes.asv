@@ -1,11 +1,11 @@
 function [Segmentation,Seuils] = k_moyennes(M0,k)
-% Le fond compte comme une classe de base donc k = k+1 en réalité
+% Le fond compte comme une classe de base donc k = k+1 en rÃ©alitÃ©
 
 Moyennes = zeros(k,1);
 
 %initialisation des k seuils
 
-Seuils = linspace(min(M0(:)),max(M0(:)),k+1);
+Seuils = linspace(min(M0(:),max(M0(:))),k+1);
 
 
 Seuils_old = Seuils+1;
@@ -19,9 +19,9 @@ while (norm(Seuils-Seuils_old)>0) %tant que les seuils bougent
    end
 
    Seuils_old = Seuils;
-   %Mise a jour des seuils séparant chaque classe
+   %Mise a jour des seuils sÃ©parant chaque classe
    for i = 2:k
-       Seuils(i) = (Moyennes(i-1) + Moyennes(i)) / 2;
+       Seuils(i) = (Moyennes(i) + Moyennes(i+1)) / 2;
    end
 end
 
