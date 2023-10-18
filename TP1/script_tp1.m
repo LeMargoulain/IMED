@@ -30,7 +30,7 @@ z = 1:1:154;
 
 [F,V] = MarchingCubes(X,Y,Z,smoothed_segmentation,1.5);
 
-%% =====Partie avec biais======%
+% =====Partie avec biais======%
 
 %% Exercice 5 %%
 
@@ -49,24 +49,32 @@ surf(m_0_b(:,:,80))
 
 %% Exercice 7 %%
 %ndgrid
-%size_matrix = size(m_0_b);
-[x,y] = ndgrid(m_0_b(:,:,80));
+size_matrix = size(m_0_b);
+[x,y] = ndgrid(1:size_matrix(1),1:size_matrix(2));
 z = m_0_b(:,:,80);
+x = x(~isnan(m_0_b(:,:,80)));
+y = y(~isnan(m_0_b(:,:,80)));
+z =z(~isnan(z));
 
 Xcolv = x(:); % on transforme en vecteur colonne
 Ycolv = y(:); 
 Zcolv = z(:); 
 Const = ones(size(Xcolv)); %vecteur de 1 pour le terme constant
-
 Coefficients = [Xcolv Ycolv Const]\Zcolv;
 
 XCoeff = Coefficients(1); 
 YCoeff = Coefficients(2);
 CCoeff = Coefficients(3);
 
-hold on
-[xx, yy]=meshgrid(0:.1:1,0:.1:1); % génère une grille régulière pour l'affichage du plan estimé
-zz = XCoeff * xx + YCoeff * yy + CCoeff;
+[xx, yy]=meshgrid(0:1:size_matrix(2),0:1:size_matrix(1)); % génère une grille régulière pour l'affichage du plan estimé
+zz = XCoeff * yy + YCoeff * xx + CCoeff;
+figure(1)
 surf(xx,yy,zz) % affiche le plan donné par l'équation estimée
+hold on
+surf(m_0_b(:,:,80))
+hold on
+grid on
 title(sprintf('Plan z=(%f)*x+(%f)*y+(%f)',XCoeff, YCoeff, CCoeff)) %équation du plan estimé (doit être proche de z=2x-5y+3)
 % En tournant autour de la surface on voit que les points (x,y,z) sont "à peu près" sur le plan estimé
+
+
