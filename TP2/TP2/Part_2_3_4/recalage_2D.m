@@ -1,0 +1,48 @@
+function [ recalee, SSD_vec ] = recalage_2D(I, J, epsilon)
+%This function implements the recalage 2D
+
+p = 0;
+q = 0;
+
+p_old = 1;
+q_old = 1;
+
+nb_iter = 0;
+SSD_vec = [];
+
+while(norm([p,q] - [p_old,q_old])>1e-2)
+    
+    nb_iter = nb_iter + 1;
+    
+    I_t = translation(I,-q,-p);
+    [I_x,I_y] = grad_centre(I_t);
+    
+    d_p = 2 * sum((I_t(:) - J(:)).*I_y(:));
+    d_q = 2 * sum((I_t(:) - J(:)).*I_x(:));
+    
+    p_old = p;
+    p = p - epsilon*d_p;
+    
+    q_old = q;
+    q = q - epsilon*d_q;
+    
+    SSD_temp = sum((I_t(:)-J(:)).^2);
+    SSD_vec = [SSD_vec SSD_temp];
+
+    
+    subplot(1,4,1);
+    imshow(J,[]);
+    subplot(1,4,2);
+    imshow(I_t, []);
+    subplot(1,4,3);
+    plot(1:1:nb_iter,SSD_vec);
+    subplot(1,4,4);
+    imshow(abs(J - I_t), []);
+    drawnow
+    
+end
+
+recalee = I_t;
+
+end
+

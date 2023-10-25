@@ -25,7 +25,7 @@ for k=1:numel(donnees)
         
         H=hist2(I,round(J)); % round pour garder valeurs entières (plus simple pour hist2)
         
-        SSD = ssd(I,J);
+        SSD = ssd(H);
         CORR = correlation(I,J);
         IM = mutual_information(H);
         

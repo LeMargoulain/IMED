@@ -6,7 +6,7 @@ for k=1:4
     
     H=hist2(I,J);
     
-    SSD = ssd(I,J);
+    SSD = ssd(H);
     CORR = correlation(I,J);
     IM = mutual_information(H);
     
